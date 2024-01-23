@@ -1,0 +1,35 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+.header {
+  background-color: #333;
+  padding: 20px;
+  text-align: center;
+}
+
+.cover-img {
+  max-width: 100%; /* 確保圖片不會超過容器寬度 */
+  height: auto;
+  display: inline-block; /* 使圖片像文本一樣對齊 */
+}
+
+.main-content {
+  margin-top: 20px;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#status {
+  margin-top: 20px;
+  font-size: 20px;
+}
