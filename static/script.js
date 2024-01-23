@@ -47,12 +47,3 @@ function stopServer() {
       document.getElementById('error').innerText = error.message
     })
 }
-
-function updateStatus() {
-  fetch('/status')
-    .then((response) => response.text())
-    .then((status) => (document.getElementById('status').innerText = status))
-}
-
-setInterval(updateStatus, 5000)
-updateStatus()
