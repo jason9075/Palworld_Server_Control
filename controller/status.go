@@ -32,7 +32,6 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
         http.Error(w, "Error executing gamedig command", http.StatusInternalServerError)
         return
     }
-    fmt.Println(string(output))
 
     var error ServerError
     err = json.Unmarshal(output, &error)
@@ -40,7 +39,6 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
         fmt.Fprint(w, "遊戲伺服器未運行")
         return
     }
-
 
     var status ServerStatus
     err = json.Unmarshal(output, &status)
@@ -50,7 +48,6 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
         http.Error(w, "Error unmarshalling gamedig output", http.StatusInternalServerError)
         return
     }
-    fmt.Println(status)
     fmt.Fprintf(w, "遊戲伺服器正在運行\n 玩家人數: %d/%d\n 玩家ID: %v", status.NumPlayers, status.MaxPlayers, status.Players)
 }
 
