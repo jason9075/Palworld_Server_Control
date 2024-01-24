@@ -44,7 +44,7 @@ func StartServerHandler(w http.ResponseWriter, r *http.Request) {
     if err != nil {
         fmt.Println("Error executing SSH command:", err)
     } else {
-        discordMsg("帕爾，啟動！")
+        discordMsg(randomMsg())
         fmt.Println("Command executed successfully")
     }
 
@@ -128,4 +128,18 @@ func discordMsg(msg string) {
     if err != nil {
         fmt.Println("Error sending discord message:", err)
     }
+}
+
+func randomMsg() string {
+    msgs := []string{
+        "帕魯，啟動！",
+        "早上好！帕爾，現在是工作時間",
+        "我來到一個島 它叫帕爾奴隸島",
+        "你不幹有的是帕魯幹",
+        "帕魯，心中最軟的一愧",
+        "我帕魯諾•喬巴納有個夢想,那就是準時下班",
+        "今天玩帕魯，明天當帕魯",
+    }
+
+    return msgs[time.Now().UnixNano() % int64(len(msgs))]
 }
