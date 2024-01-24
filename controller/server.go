@@ -40,7 +40,6 @@ func StartServerHandler(w http.ResponseWriter, r *http.Request) {
         fmt.Println("Error executing wake script:", err)
     }
 
-
     err = executeSSHCommand(os.Getenv("START_COMMAND"), os.Getenv("SERVER_HOST"), os.Getenv("SSH_USER"), os.Getenv("SSH_KEY_PATH"))
     if err != nil {
         fmt.Println("Error executing SSH command:", err)

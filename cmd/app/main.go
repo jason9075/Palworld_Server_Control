@@ -18,6 +18,7 @@ func main() {
     http.Handle("/", fs)
     http.HandleFunc("/startServer", controller.StartServerHandler)
     http.HandleFunc("/stopServer", controller.StopServerHandler)
+    http.HandleFunc("/status", controller.StatusHandler)
 
     fmt.Println("Server is running on port 8080...")
     http.ListenAndServe(":8080", nil)
