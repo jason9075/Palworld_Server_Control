@@ -7,19 +7,8 @@
 </head>
 
 <body>
-    <div class="banner">
-        <script type="application/javascript">
-            window.addEventListener('message', function (e) {
-                if (e.data.uid && e.data.type === 'sizeUpdate') {
-                    var i = document.querySelector('iframe[name="' + e.data.uid + '"]')
-                    i.style.width = e.data.payload.width
-                    i.style.height = e.data.payload.height
-                }
-            })
-        </script>
-        <iframe
-            src="https://cdn.battlemetrics.com/b/horizontal500x80px/25403220.html?foreground=%23EEEEEE&background=%23222222&lines=%23333333&linkColor=%231185ec&chartColor=%23FF0700"
-            frameborder="0" style="border: 0" name="sikqa"></iframe>
+    <div class="header">
+        <img src="images/cover.jpg" alt="Pal World Cover" class="cover-img" />
     </div>
     <div class="main-content">
         <input type="password" id="passwordInput" placeholder="Enter password" />
