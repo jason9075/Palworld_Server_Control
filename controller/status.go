@@ -2,12 +2,9 @@ package controller
 
 import (
 	"fmt"
-	"net"
 	"net/http"
 	"os"
 	"os/exec"
-	"strings"
-	"time"
     "encoding/json"
 )
 
@@ -22,6 +19,11 @@ type ServerError struct{
     Error string `json:"error"`
 }
 
+type Response struct{
+    Running bool `json:"running"`
+    Status ServerStatus `json:"status"`
+}
+
 func StatusHandler(w http.ResponseWriter, r *http.Request) {
     serverAddress := os.Getenv("PUBLIC_SERVER_HOST") + ":" + os.Getenv("SERVER_PORT")
     cmd := exec.Command("gamedig", "--type", "palworld", serverAddress)
@@ -33,10 +35,14 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
 
+    var response Response
+    w.Header().Set("Content-Type", "application/json")
+
     var error ServerError
     err = json.Unmarshal(output, &error)
     if err == nil && error.Error != "" {
-        fmt.Fprint(w, "遊戲伺服器未運行")
+        response.Running = false
+        json.NewEncoder(w).Encode(response)
         return
     }
 
@@ -48,19 +54,9 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
         http.Error(w, "Error unmarshalling gamedig output", http.StatusInternalServerError)
         return
     }
-    fmt.Fprintf(w, "遊戲伺服器正在運行\n 玩家人數: %d/%d\n 玩家ID: %v", status.NumPlayers, status.MaxPlayers, status.Players)
+    response.Running = true
+    response.Status = status
+    json.NewEncoder(w).Encode(response)
+
+    // fmt.Fprintf(w, "遊戲伺服器正在運行\n 玩家人數: %d/%d\n 玩家ID: %v", status.NumPlayers, status.MaxPlayers, status.Players)
 }
-
-func checkServerStatus(address string) bool {
-    timeout := 10 * time.Second
-    conn, err := net.DialTimeout("tcp", address, timeout)
-    if err != nil {
-        fmt.Println(err.Error())
-        return strings.Contains(err.Error(), "connection refused")
-    }
-    defer conn.Close()
-    fmt.Println("Connection successful")
-
-    return false
-}
-

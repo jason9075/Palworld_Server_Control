@@ -1,25 +1,56 @@
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.page-title {
+  text-align: center;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 0;
+}
+
+.page-title h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
 }
 
 .header {
-  background-color: #333;
-  padding: 20px;
   text-align: center;
+  background-color: #222;
+  padding: 10px 0;
 }
 
 .cover-img {
-  max-width: 100%; /* 確保圖片不會超過容器寬度 */
-  height: auto;
-  display: inline-block; /* 使圖片像文本一樣對齊 */
+  width: 40%;
+  height: 40%;
+  display: block; /* 使圖片顯示為塊級元素 */
+  margin: 0 auto; /* 水平居中圖片 */
+  object-fit: cover; /* 保持圖片的比例 */
+}
+
+@media screen and (max-width: 768px) {
+  .cover-img {
+    width: 100%; /* 在螢幕寬度小於或等於 768px 時，圖片寬度調整為 100% */
+  }
+}
+
+.ip-address {
+  text-align: center;
+  margin: 10px 0;
 }
 
 .main-content {
-  margin-top: 20px;
+  background-color: #fff;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 button {
