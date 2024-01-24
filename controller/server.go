@@ -7,6 +7,8 @@ import (
     "fmt"
     "time"
     "os"
+    "bytes"
+    "os/exec"
 )
 
 type PasswdRequest struct {
@@ -31,10 +33,19 @@ func StartServerHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-err = executeSSHCommand(os.Getenv("START_COMMAND"), os.Getenv("SERVER_HOST"), os.Getenv("SSH_USER"), os.Getenv("SSH_KEY_PATH"))
+    // send wakelan msg to device
+    cmd := exec.Command(os.Getenv("LOCAL_WAKE_SCRIPT"))
+    err = cmd.Run()
+    if err != nil {
+        fmt.Println("Error executing wake script:", err)
+    }
+
+
+    err = executeSSHCommand(os.Getenv("START_COMMAND"), os.Getenv("SERVER_HOST"), os.Getenv("SSH_USER"), os.Getenv("SSH_KEY_PATH"))
     if err != nil {
         fmt.Println("Error executing SSH command:", err)
     } else {
+        discordMsg("帕爾，啟動！")
         fmt.Println("Command executed successfully")
     }
 
@@ -105,4 +116,17 @@ func executeSSHCommand(command, hostname, username, keyPath string) error {
     }
 
     return nil
+}
+
+func discordMsg(msg string) {
+    webhookUrl := os.Getenv("DISCORD_WEBHOOK")
+    if webhookUrl == "" {
+        return
+    }
+
+    jsonValue := []byte(fmt.Sprintf(`{"content":"%s"}`, msg))
+    _, err := http.Post(webhookUrl, "application/json", bytes.NewBuffer(jsonValue))
+    if err != nil {
+        fmt.Println("Error sending discord message:", err)
+    }
 }
