@@ -55,7 +55,7 @@ function updateStatus() {
       const coverImg = document.querySelector('.cover-img')
       if (data.running) {
         document.getElementById('status').innerText =
-          `遊戲伺服器正在運行\n 玩家人數: ${data.numPlayers}/${data.maxPlayers}\n 玩家ID: ${data.players}`
+          `遊戲伺服器正在運行\n 玩家人數: ${data.status.raw.attributes.PLAYERS_l}/${data.status.maxplayers}\n 玩家ID: ${data.status.players}`
         coverImg.src = 'images/cover.jpg'
       } else {
         document.getElementById('status').innerText = '遊戲伺服器未運行'
@@ -65,5 +65,5 @@ function updateStatus() {
     .catch((error) => console.error('Error:', error))
 }
 
-setInterval(updateStatus, 10000)
+setInterval(updateStatus, 30000)
 updateStatus()

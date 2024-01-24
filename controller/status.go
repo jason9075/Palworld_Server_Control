@@ -13,6 +13,17 @@ type ServerStatus struct{
     MaxPlayers int `json:"maxplayers"`
     NumPlayers int `json:"numplayers"`
     Players []string `json:"players"`
+    Raw ServerRaw `json:"raw"`
+}
+
+type ServerRaw struct{
+    Started bool `json:"started"`
+    Attributes ServerAttributes `json:"attributes"`
+}
+
+type ServerAttributes struct{
+    Players int `json:"PLAYERS_l"`
+    Days int `json:"DAYS_l"`
 }
 
 type ServerError struct{
@@ -58,5 +69,4 @@ func StatusHandler(w http.ResponseWriter, r *http.Request) {
     response.Status = status
     json.NewEncoder(w).Encode(response)
 
-    // fmt.Fprintf(w, "遊戲伺服器正在運行\n 玩家人數: %d/%d\n 玩家ID: %v", status.NumPlayers, status.MaxPlayers, status.Players)
 }
