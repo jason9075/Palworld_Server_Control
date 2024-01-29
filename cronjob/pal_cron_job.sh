@@ -10,6 +10,9 @@ DOWN_MSG="帕爾勞工們已下班..."
 # 執行gamedig並獲取numplayers
 NUM_PLAYERS=$(gamedig --type palworld --host "$SERVER_ADDRESS" | jq '.numplayers')
 
+# write to log file
+echo "$(date "%D %T") - $NUM_PLAYERS" >> /tmp/pal_cron_job.log
+
 # check null
 if [ "$NUM_PLAYERS" == "null" ]; then
     exit 0
