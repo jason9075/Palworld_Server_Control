@@ -41,7 +41,16 @@ body {
 
 .ip-address {
   text-align: center;
-  margin: 10px 0;
+}
+
+#copyButton {
+  margin-left: 10px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .main-content {
@@ -53,7 +62,17 @@ body {
   border-radius: 8px;
 }
 
+.main-content input[type='text'] {
+  width: 100%; /* Make input and button take the full width of their parent */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  margin-bottom: 10px; /* Add some space between the elements */
+}
+
+/* round the corners of the button */
 button {
+  border: none;
+  border-radius: 5px;
+  color: #fff;
   margin: 10px;
   padding: 10px 20px;
   font-size: 16px;

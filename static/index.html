@@ -14,14 +14,32 @@
         <img src="images/cover.jpg" alt="Pal World Cover" class="cover-img" />
     </div>
     <div class="ip-address">
-        <h2>114.35.183.178:8211</h2>
+        <div class="ip-address">
+            <h2><span id="ipAddress">114.35.183.178:8211</span> <button id="copyButton"
+                    onclick="copyToClipboard()">📋</button></h2>
+        </div>
     </div>
     <div class="main-content">
+        <h2>Server Control</h2>
         <input type="password" id="passwordInput" placeholder="Enter password" />
-        <button onclick="startServer()">Start Server</button>
-        <button onclick="stopServer()">Stop Server</button>
+        <button onclick="startServer()" style="background-color: #04aa6d">
+            Start Server
+        </button>
+        <button onclick="stopServer()" style="background-color: #f44336">
+            Stop Server
+        </button>
         <p id="error" style="color: red"></p>
         <p id="status">Loading status...</p>
+
+        <h2>Server Settings</h2>
+        <p style="color: orange;"">警告：設置Config會導致伺服器重新啟動，請在伺服器沒有玩家時設定。</p>
+        <button onclick=" fetchConfig()" style="background-color: #008cba">
+            Fetch Config
+            </button>
+            <button onclick="setConfig()" style="background-color: #008cba">
+                Set Config
+            </button>
+            <textarea id="configInput" rows="40" style="width: 100%">Config Value Here...</textarea>
     </div>
 </body>
 
