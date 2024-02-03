@@ -120,7 +120,16 @@ function setConfig() {
 
 function copyToClipboard() {
   var ipAddress = document.getElementById('ipAddress').innerText
-  navigator.clipboard.writeText(ipAddress)
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(ipAddress)
+  } else {
+    var textArea = document.createElement('textarea')
+    textArea.value = ipAddress
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+    document.execCommand('copy')
+  }
 }
 
 setInterval(updateStatus, 30000)
